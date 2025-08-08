@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>AN HOANG IOS Launcher</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      background: url('https://i.ibb.co/3W0yZyY/anime-life-bg.gif') no-repeat center center fixed;
+      background-size: cover;
+      overflow: hidden;
+    }
+    .container {
+      width: 420px;
+      margin: 80px auto;
+      background: rgba(0,0,0,0.75);
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #00f0ff;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #00f0ff;
+    }
+    input[type="text"], input[type="password"], select {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #00f0ff;
+      border: none;
+      border-radius: 5px;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .panel {
+      display: none;
+      margin-top: 30px;
+    }
+    .toggle, .dropdown {
+      margin: 10px 0;
+    }
+    .log {
+      background: black;
+      padding: 10px;
+      height: 100px;
+      overflow-y: auto;
+      font-size: 12px;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+    .owner {
+      text-align: center;
+      font-size: 14px;
+      margin-top: 10px;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="loginBox">
+    <h2>Đăng nhập AN HOANG IOS</h2>
+    <input type="text" id="username" placeholder="Tên đăng nhập" />
+    <input type="password" id="password" placeholder="Mật khẩu" />
+    <input type="text" id="accessKey" placeholder="Mã truy cập" />
+    <button onclick="validateLogin()">Vào</button>
+    <div class="owner">Chủ sở hữu: AN HOANG IOS</div>
+  </div>
+
+  <div class="container panel" id="mainPanel">
+    <h2>PeakCheatVN Panel</h2>
+
+    <div class="dropdown">
+      <label>GHIM TÂM:</label>
+      <select onchange="log('Ghim tâm: ' + this.value)">
+        <option>GHIM TÂM KHÔNG ĐỘ TRỄ</option>
+        <option>GHIM TÂM CÓ ĐỘ TRỄ</option>
+        <option>GHIM TÂM CHẶT GIỮA ĐẦU (SẮP CÓ)</option>
+        <option>Tắt ghim tâm</option>
+      </select>
+    </div>
+
+    <div class="dropdown">
+      <label>Định vị (ESP):</label>
+      <select onchange="log('ESP: ' + this.value)">
+        <option>Tiêm</option>
+        <option>Chams</option>
+        <option>SkylineChams</option>
+      </select>
+    </div>
+
+    <div class="toggle">
+      <label><input type="checkbox" onchange="toggleFreeze(this)"> Đóng băng kẻ địch (Z)</label>
+    </div>
+
+    <div class="toggle">
+      <label><input type="checkbox" onchange="toggleGhost(this)"> Chế độ ma (X)</label>
+    </div>
+
+    <div class="log" id="consoleLog">
+      [Hệ thống] Đã khởi động launcher...
+    </div>
+  </div>
+
+  <script>
+    const validKeys = [
+      "KEY-DAY-jdajdhsadhash",
+      "KEY-WEEK-xyzxyzxyzxyz",
+      "KEY-MONTH-abcabcabcabc"
+    ];
+
+    function validateLogin() {
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+      const key = document.getElementById("accessKey").value;
+
+      if (user === "anhoang" && pass === "123456") {
+        document.getElementById("loginBox").style.display = "none";
+        document.getElementById("mainPanel").style.display = "block";
+        log(`[Đăng nhập] Xin chào AN HOANG IOS, truy cập chủ sở hữu.`);
+      } else if (user && pass && validKeys.includes(key)) {
+        document.getElementById("loginBox").style.display = "none";
+        document.getElementById("mainPanel").style.display = "block";
+        log(`[Đăng nhập] Xin chào ${user}, truy cập thành công.`);
+      } else {
+        alert("Sai thông tin hoặc mã truy cập.");
+        log("[Đăng nhập] Thất bại.");
+      }
+    }
+
+    function log(msg) {
+      const logBox = document.getElementById("consoleLog");
+      logBox.innerHTML += `<br>${msg}`;
+      logBox.scrollTop = logBox.scrollHeight;
+    }
+
+    function toggleFreeze(el) {
+      log(`[Freeze] ${el.checked ? "Đã đóng băng kẻ địch" : "Đã bỏ đóng băng"}`);
+    }
+
+    function toggleGhost(el) {
+      log(`[Ghost Mode] ${el.checked ? "Đã kích hoạt chế độ ma" : "Đã tắt chế độ ma"}`);
+    }
+  </script>
+</body>
+</html>
